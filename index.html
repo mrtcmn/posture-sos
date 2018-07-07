@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Posture</title>
+  <meta charset="utf-8">
+  <meta name="theme-color" content="#252828">
+  <meta name="msapplication-navbutton-color" content="#252828">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#252828">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-site-verification" content="qX29rrQkQ7bv2T9BxGy_XRCEUnwEiq80r5hMvwU3tQA" />
+  <meta name="description" content="İstanbul, Ankara ve İzmir'de dışarıda ister tek istersen grupça çalışabilecek, toplantı yapabilecek kafeler ara yada ekle." />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="cropper.js"></script>
+  <script src="v.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+</head>
+
+<body>
+
+
+  <main role="main">
+
+
+
+    <button type="button" class="btn btn-primary" onclick="girisGoogle()">Google ile giriş yap</button>
+    <div class="form-group">
+      <label for="sel1">DEĞERLENDİRME</label>
+      <select class="form-control" id="whichDeg">
+      <option disabled selected value> -- test seçiniz -- </option>
+      <option value="postur_on">POSTÜR - ÖN</option>
+      <option value="postur_yan">POSTÜR - YAN</option>
+        <option value="fpi_6">FPI-6</option>
+    </select>
+      <button type="button" class="btn btn-danger clearALLf">Temizle</button>
+    </div>
+
+
+    <div class="form-group">
+      <input type="text" id="degNAME">
+
+      <button type="button" class="btn btn-danger gonderFire">gönder</button>
+    </div>
+    <ul class="tabs">
+      <li class="tab-link current" data-tab="tab-1">RESİM DÜZENLE</li>
+      <li class="tab-link" id="secondTab" data-tab="tab-2">ANALİZ</li>
+      <li class="tab-link" data-tab="tab-3">LİSTE</li>
+    </ul>
+    <div id="tab-1" class="tab-content current">
+
+      <div class="row">
+        <div class="col-md-12">
+          <!-- <h3>Demo:</h3> -->
+          <div class="img-container">
+            <img id="image" src="picture.jpg" alt="Picture">
+          </div>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-md-12 docs-buttons">
+          <!-- <h3>Toolbar:</h3> -->
+          <div class="btn-group">
+            <button type="button" class="btn btn-primary" data-method="setDragMode" data-option="move" title="Move">
+               <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="$().cropper(&quot;setDragMode&quot;, &quot;move&quot;)">
+                 <span class="fa fa-arrows"></span>
+               </span>
+             </button>
+            <button type="button" class="btn btn-primary" data-method="setDragMode" data-option="crop" title="Crop">
+               <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="$().cropper(&quot;setDragMode&quot;, &quot;crop&quot;)">
+                 <span class="fa fa-crop"></span>
+               </span>
+             </button>
+          </div>
+
+          <div class="btn-group">
+            <button type="button" class="btn btn-primary" data-method="zoom" data-option="0.1" title="Zoom In">
+               <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="$().cropper(&quot;zoom&quot;, 0.1)">
+                 <span class="fa fa-search-plus"></span>
+               </span>
+             </button>
+            <button type="button" class="btn btn-primary" data-method="zoom" data-option="-0.1" title="Zoom Out">
+               <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="$().cropper(&quot;zoom&quot;, -0.1)">
+                 <span class="fa fa-search-minus"></span>
+               </span>
+             </button>
+          </div>
+
+          <div class="btn-group">
+            <button type="button" class="btn btn-primary" data-method="move" data-option="-10" data-second-option="0" title="Move Left">
+               <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="$().cropper(&quot;move&quot;, -10, 0)">
+                 <span class="fa fa-arrow-left"></span>
+               </span>
+             </button>
+            <button type="button" class="btn btn-primary" data-method="move" data-option="10" data-second-option="0" title="Move Right">
+               <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="$().cropper(&quot;move&quot;, 10, 0)">
+                 <span class="fa fa-arrow-right"></span>
+               </span>
+             </button>
+            <button type="button" class="btn btn-primary" data-method="move" data-option="0" data-second-option="-10" title="Move Up">
+               <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="$().cropper(&quot;move&quot;, 0, -10)">
+                 <span class="fa fa-arrow-up"></span>
+               </span>
+             </button>
+            <button type="button" class="btn btn-primary" data-method="move" data-option="0" data-second-option="10" title="Move Down">
+               <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="$().cropper(&quot;move&quot;, 0, 10)">
+                 <span class="fa fa-arrow-down"></span>
+               </span>
+             </button>
+          </div>
+
+          <div class="btn-group">
+            <button type="button" class="btn btn-primary" data-method="rotate" data-option="-1" title="SOLA ÇEVİR">
+               <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="$().cropper(&quot;rotate&quot;, -1)">
+                 <span class="fa fa-rotate-left"></span>
+               </span>
+             </button>
+            <button type="button" class="btn btn-primary" data-method="rotate" data-option="1" title="SAĞA ÇEVİR">
+               <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="$().cropper(&quot;rotate&quot;, 1)">
+                 <span class="fa fa-rotate-right"></span>
+               </span>
+             </button>
+          </div>
+
+
+
+
+          <div class="btn-group">
+            <button type="button" class="btn btn-primary" data-method="reset" title="Reset">
+               <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="$().cropper(&quot;reset&quot;)">
+                 <span class="fa fa-refresh"></span>
+               </span>
+             </button>
+            <label class="btn btn-primary btn-upload" for="inputImage" title="Upload image file">
+               <input type="file" class="sr-only" id="inputImage" name="file" accept=".jpg,.jpeg,.png,.gif,.bmp,.tiff">
+               <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="Import image with Blob URLs">
+                 <span class="fa fa-upload"></span>
+               </span>
+             </label>
+
+          </div>
+
+          <div class="btn-group btn-group-crop">
+            <button type="button" class="btn btn-success" data-method="getCroppedCanvas" data-option="{ &quot;maxWidth&quot;: 4096, &quot;maxHeight&quot;: 4096 , &quot;width&quot;: 600 , &quot;height&quot;: 1000 }">
+               <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="$().cropper(&quot;getCroppedCanvas&quot;, { maxWidth: 4096, maxHeight: 4096 })">
+                 RESMİ ANALİZ ET
+               </span>
+             </button>
+
+          </div>
+
+
+        </div>
+        <!-- /.docs-buttons -->
+
+
+      </div>
+      <!-- /.docs-toggles -->
+
+    </div>
+    <div id="tab-2" class="tab-content">
+
+      <div id="nextElement">Sağ Göz</div>
+      <div class="row">
+        <div class="col-md-8">
+          <div class="mainCanvas">
+            <div class="imagesReplacement" style="background:url(name.JPG) no-repeat;">
+              <svg class="drawlines" id="drawlines">
+            </svg>
+
+              <canvas id="canvas">
+
+          </canvas>
+
+            </div>
+          </div>
+          <div class="zoomView">
+            <div class="dot">
+            </div>
+            <div class="imagesReplacement" id="zoomImage" style="background:url(name.JPG) no-repeat;">
+
+            </div>
+
+
+          </div>
+          <div>
+            <button id="fpi6_gozukmuyor">BU ADIM GÖZüKMÜYOR</button>
+
+          </div>
+        </div>
+        <div class="col-md-4">
+
+          <p id="ayakYonu"></p>
+
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Açı</th>
+              </tr>
+            </thead>
+            <tbody class="addAllItemDegrees">
+
+
+            </tbody>
+          </table>
+          <div id="fpi_6">
+
+          </div>
+          <div class="form-check on_posture">
+            <input class="form-check-input" type="checkbox" value="" id="gvarum">
+            <label class="form-check-label" for="gvarum">
+            Genu Varum
+            </label>
+          </div>
+          <div class="form-check on_posture">
+            <input class="form-check-input" type="checkbox" value="" id="gvalgum">
+            <label class="form-check-label" for="gvalgum">
+            Genu Valgum
+            </label>
+          </div>
+          <div class="form-check yan_posture">
+            <input class="form-check-input" type="checkbox" value="" id="tkifoz">
+            <label class="form-check-label" for="tkifoz">
+            Torakal Kifoz
+            </label>
+          </div>
+          <div class="form-check yan_posture">
+            <input class="form-check-input" type="checkbox" value="" id="llordoz">
+            <label class="form-check-label" for="llordoz">
+            Lumbar lordoz artışı
+            </label>
+          </div>
+          <div class="form-check yan_posture">
+            <input class="form-check-input" type="checkbox" value="" id="lkifoz">
+            <label class="form-check-label" for="lkifoz">
+            Lumbar kifoz artışı
+            </label>
+          </div>
+          <div class="form-check yan_posture fpi_6_cb">
+            <input class="form-check-input" type="checkbox" value="" id="banterior">
+            <label class="form-check-label" for="banterior">
+            Baş anterior - translasyon
+            </label>
+          </div>
+          <div class="form-check fpi_6_cb">
+            <input class="form-check-input" type="checkbox" value="" id="badclothes">
+            <label class="form-check-label" for="badclothes">
+            KIYAFET UYGUN DEĞİL
+            </label>
+          </div>
+
+        </div>
+
+
+      </div>
+      <!-- row -->
+    </div>
+    <div id="tab-3" class="tab-content">
+      <div class="container">
+        <div class="row" style="margin-top: 50px;">
+          <div class="col-md-12 text-center">
+            <div class="outer-form">
+              <table class="table-striped table table-bordered vertical" id="veriler" >
+                <thead style="color: white; font-weight: normal; background-color: black;">
+                  <tr>
+
+                    <th class="head">İsim</th>
+                    <th class="head">Test İsmi</th>
+                    <th class="head">Görsel</th>
+                    <th class="head">Hesaplama</th>
+                    <th class="head">Ayak?</th>
+                    <th class="head">FPI veri/ datas</th>
+                  </tr>
+                </thead>
+
+                <tbody style="border:1px solid transparent; background-color:#242424; color:#A1A6AB; text-align: left;" id="veriAkis">
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- FOOTER -->
+    <footer class="container">
+      <p>Murat Çimen </p>
+    </footer>
+  </main>
+
+<div id='temp'></div>
+
+</body>
+
+</html>
